@@ -26,7 +26,7 @@ module.exports = sequelize.define("Ticket", {
     }, 
 
     datePurchase: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false
     }, 
 

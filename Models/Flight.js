@@ -9,18 +9,18 @@ module.exports = sequelize.define("Flight", {
         primaryKey: true
     }, 
 
-    price:{
+    price: {
         type: DataTypes.INTEGER,
         allowNull: false
     }, 
 
     dateDeparture: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false
     }, 
 
     dateArrival: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false
     }, 
 
