@@ -30,8 +30,12 @@ module.exports = sequelize.define("Flight", {
     }, 
 
     meal: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
     }, 
+
+    wifi: {
+        type: DataTypes.INTEGER
+    },
 
     state: {
         type: DataTypes.STRING,
