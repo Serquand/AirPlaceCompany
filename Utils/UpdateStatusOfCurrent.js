@@ -35,5 +35,5 @@ module.exports = async () => {
     const condition = generateCondition(flights)
 
     await Flight.update({ state: "Done" }, { where: {[Op.or]: condition }})
-    await Ticket.update({ state: "Cancelled" }, { where: {[Op.or]: condition } }) 
+    await Ticket.update({ state: "Done" }, { where: {[Op.or]: condition } }) 
 }
