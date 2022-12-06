@@ -15,12 +15,12 @@ module.exports = sequelize.define("Flight", {
     }, 
 
     dateDeparture: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
     }, 
 
     dateArrival: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
     }, 
 
