@@ -76,6 +76,12 @@
     font-size: 15px;
 }
 
+.info-flight-container {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
 .dest {
     display: flex;
     flex-direction: column;
@@ -89,4 +95,18 @@
     flex-direction: column;
     align-items: center;
     font-size: 15px;
+}
+
+.bought-trip {
+    width: 100px;
+    height: 35px;
+    border: none;
+    outline: none;
+    color: #163767;
+    background-color: white;
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+
 }
