@@ -1,0 +1,92 @@
+*, *::after, *::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.profil {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+    gap: 25px;
+}
+
+.profil img {
+    width: 125px;
+}
+
+.profil * {
+    font-size: 15px;
+}
+
+.profil span  {
+    text-transform: uppercase;
+}
+
+.tickets-container, 
+.section-flight .tickets-mode-container {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: auto;
+}
+
+.tickets-container {
+    gap: 45px;
+}
+
+.tickets-container h3 {
+    padding: 10px;
+    border-bottom: 2px solid #555;
+}
+
+.section-flight .tickets-mode-container {
+    align-items: center;
+    gap: 25px;
+    padding-top: 25px;
+}
+
+.ticket {
+    display: flex;
+    flex-direction: row;
+    background-color: #377FBC;
+    color: white;
+    border: 2px solid #555;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 10px 50px 10px 10px;
+    align-items: center;
+    gap: 25px;
+}
+
+.ticket .hour-trip img {
+    width: 50px;
+}
+
+.hour-trip {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 13px;
+}
+
+.trip {
+    display: flex;
+    font-size: 15px;
+}
+
+.dest {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 85px;
+    font-size: 15px;
+}
+
+.available-seat, .duration, .service-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 15px;
+}
