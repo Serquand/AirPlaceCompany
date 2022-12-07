@@ -23,6 +23,11 @@ module.exports = sequelize.define("Client", {
         allowNull: false
     },
 
+    password: {
+        type: DataTypes.STRING, 
+        allowNull: false,
+    },
+
     birthDate: {
         type: DataTypes.STRING, 
         allowNull: false
