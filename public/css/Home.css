@@ -10,7 +10,7 @@ html, body, .home-arrival {
 }
 
 .home-arrival {
-    background-image: url("./airplane.png");
+    background-image: url("/assets/airplane.png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
