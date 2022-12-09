@@ -13,6 +13,11 @@ module.exports = sequelize.define("Airport", {
         allowNull: false
     },
 
+    discriminator: {
+        type: DataTypes.STRING(3), 
+        allowNull: false
+    },
+
     cityName: {
         type: DataTypes.STRING(50), 
         allowNull: false

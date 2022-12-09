@@ -28,6 +28,10 @@ module.exports = sequelize.define("Client", {
         allowNull: false,
     },
 
+    isAdmin: {
+        type: DataTypes.INTEGER
+    },
+
     birthDate: {
         type: DataTypes.STRING, 
         allowNull: false
