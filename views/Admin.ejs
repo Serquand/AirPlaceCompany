@@ -2,8 +2,61 @@
 <html lang="en">
 <head>
     <%- include("Partials/Head") %>
+    <script src="/js/Search.js"></script>
 </head>
 <body>
     <%- include("Partials/header", { position: "sticky" }) %>
+    <main>
+        <section>
+            <form>
+                <div class="attributes-form">
+                    <div class="booking-form-component">
+                        <input 
+                            type="text"
+                            class="input-booking"
+                            placeholder="Departure airport"
+                        />
+                        <% for(const airport of airports) { %>
+                            <div class="airport-choice">
+                               <p>
+                                    <%= airport.cityName %> 
+                                    <span>(<%= airport.discriminator %>)</span>
+                                </p>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="booking-form-component">
+                        <input 
+                            type="text"
+                            class="input-booking"
+                            placeholder="Arrival airport"
+                        />
+                        <% for(const airport of airports) { %>
+                            <div class="airport-choice">
+                               <p>
+                                    <%= airport.cityName %> 
+                                    <span>(<%= airport.discriminator %>)</span>
+                                </p>
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <div class="booking-form-component">
+                        <input 
+                            type="date"
+                            class="input-booking"                        
+                        />
+                    </div>
+                </div>
+
+                <button 
+                    type="button" 
+                    class="booking-form-component button-booking-form button"
+                    id="button-search-flight"
+                >Search</button>
+            </form>
+        </section>
+    </main>
 </body>
 </html>

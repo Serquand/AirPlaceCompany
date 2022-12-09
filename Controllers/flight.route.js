@@ -4,9 +4,10 @@ const Flight = require('../Models/Flight');
 const Ticket = require("../Models/Ticket")
 const Airport = require("../Models/Airport")
 const sequelize = require("../Models/Connection")
+const { isAuth, isAdmin } = require("./auth");
 
 // We are gonna to create a new flight
-router.post("/createFlight", async (req, res) => {
+router.post("/createFlight", isAdmin, async (req, res) => {
     if(req.body.price < 0) return res.status(400).json({ information: "The price cannot be lower than 0" })
     if(req.body.seat < 0) return res.status(400).json({ information: "The number of available seat cannot be lower than 0" })
     if(req.body.airportArrival === req.body.airportDeparture) return res.status(401).json({ information: "The airport arrival and the airport departure cannot be the same" })
@@ -26,7 +27,7 @@ router.post("/createFlight", async (req, res) => {
 })
 
 // We are gonna to cancel a flight
-router.patch("/cancelFlight/:idFlight", async (req, res) => {
+router.patch("/cancelFlight/:idFlight", isAdmin, async (req, res) => {
     if(!req.params.idFlight) return res.status(400).json({ information: "Invalid request !" })
 
     Flight.update({ state: "Cancelled" }, { where: { idFlight: req.params.idFlight } })
@@ -36,7 +37,7 @@ router.patch("/cancelFlight/:idFlight", async (req, res) => {
 })
 
 //Ticket bought 
-router.post("/bought", async (req, res) => {
+router.post("/bought", isAuth, async (req, res) => {
     // If the flight is full, or the flight is not exist, return error
     const flight = (await Flight.findOne({ 
         where: { idFlight: req.body.flight }, 
@@ -65,11 +66,8 @@ router.post("/bought", async (req, res) => {
     return res.status(201).json({ information: "Succesfully purchased" })
 })
 
-// Make a list of all the flights 
-router.get("/list", async (req, res) => {})
-
 // Get the info of a flight for an admin 
-router.get("/info/:idFlight", async (req, res) => {
+router.get("/info/:idFlight", isAdmin, async (req, res) => {
     if(!req.params.idFlight) return res.status(401).json({ information: "Invalid erquest" });
 
     // Get basis information on the flight
@@ -100,11 +98,8 @@ router.get("/info/:idFlight", async (req, res) => {
     return res.status(200).json({ flight })
 })
 
-// Get the info of our flights
-router.get("/ourFlights", async (req, res) => {})
-
 // We are gonna to update a flight price
-router.put("/:idFlight", async (req, res) => {
+router.put("/:idFlight", isAdmin, async (req, res) => {
     // Check if the params idFlight and the price is correct are correct
     if(!req.params.idFlight || !req.body.price) return res.status(401).json({ information: "Invalid request !" })
 
@@ -125,7 +120,7 @@ router.put("/:idFlight", async (req, res) => {
 })
 
 // We are gonna to cancel a ticket
-router.patch("/cancelTicket/:idTicket", async (req, res) => {
+router.patch("/cancelTicket/:idTicket", isAuth, async (req, res) => {
     if(!req.params.idTicket) return res.status(400).json({ information: "Invalid request !" })
 
     // Get the ticket 
