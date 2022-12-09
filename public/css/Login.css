@@ -1,9 +1,3 @@
-*, *::after, *::before {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
 .modal {
     position: absolute;
     top: 50%;
@@ -11,7 +5,7 @@
     transform: translate(-50%, -50%);
     display: flex;
     padding: 50px 100px;
-    background-color: #377FBC;
+    background-color: #689fbc;
     border-radius: 25px;
 }
 
