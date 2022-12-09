@@ -1,13 +1,13 @@
 <div class="ticket">
     <div class="hour-trip">
-        <p class="date">7 décembre 2022</p>
-        <p class="hour">10:55 - 19:37</p>
+        <p class="date"><%= info.flight.date %></p>
+        <p class="hour"><%= info.flight.hourDeparture %> - <%= info.flight.hourArrival %></p>
         
         <div class="trip">
             <img src="/assets//trip.png" alt="trip" />
             <div class="dest">
-                <p>Budapest (BUD)</p>
-                <p>Paris (CDG)</p>
+                <p><%= info.airportDeparture.cityName %> (<%= info.airportDeparture.discriminator %>)</p>
+                <p><%= info.airportArrival.cityName %> (<%= info.airportArrival.discriminator %>)</p>
             </div>
         </div>
     </div>
@@ -15,19 +15,28 @@
     <div class="info-flight-container">
         <div class="available-seat">
             <p>Available seat</p>
-            <p>125</p>
+            <p><%= info.flight.availableSeat %></p>
         </div>
 
         <div class="duration">
             <p>Duration</p>
-            <p>2h45</p>
+            <p><%= info.flight.travelTime %></p>
         </div>
 
         <div class="service-container">
             <p>Service</p>
             <div class="trip-service">
-                <img src="/assets//plate.png" alt="Plate" />
-                <img src="/assets//wifi.png" alt="Wifi" />
+                <% if (info.flight.meal) { %>
+                    <img src="/assets/plate.png" alt="Plate" />
+                <% } %>
+
+                <% if (info.flight.wifi) { %>
+                    <img src="/assets/wifi.png" alt="Wifi" />
+                <% } %>  
+
+                <% if (!info.flight.wifi && !info.flight.meal) { %>
+                    <p>None</p>
+                <% } %>
             </div>
         </div>
     </div>

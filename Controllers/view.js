@@ -1,27 +1,31 @@
 const getInfoUser = require("../Utils/GetInfoUser")
 const getFlightUser = require("../Utils/GetFlightUser")
+const getAirports = require("../Utils/GetAirport")
+
 const util = require("util");
 
-const homeView = (req, res) => {
+const homeView = async (req, res) => {
     const authType = {
         logged: req.session.user ? true : false, 
         admin: req.session.admin ? true : false,
     }
 
-    // List of the flights
+    // List of the flights and the airports
+    const airports = await getAirports()
 
-
-    res.status(200).render("Home", { authType })
+    res.status(200).render("Home", { authType, airports })
 }
 
-const adminView = (req, res) => {
+const adminView = async (req, res) => {
     const authType = {
         logged: true, 
         admin: true,
     }
 
-    // List of the flights
-    res.status(200).render("Admin", { authType })
+    // List of the flights and the airports
+    const airports = await getAirports()
+
+    res.status(200).render("Admin", { authType, airports })
 }    
 
 const loginView = (req, res) => {
@@ -41,7 +45,7 @@ const memberView = async (req, res) => {
     
     const user = await getInfoUser(req.session.user)
     const flights = await getFlightUser(req.session.user);
-    console.log(util.inspect({ authType, user, flights }, false, null, true));
+    
     return res.status(200).render("Member", { authType, user, flights })
 }
 

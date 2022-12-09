@@ -13,12 +13,12 @@
 
         <div class="user-info">
             <h3>
-                Nathan, 
-                <span class="last-name">Viau</span>
+                <%= user.name %> 
+                <span class="last-name"><%= user.lastname %></span>
             </h3>
-            <p>12/03/2002</p>
-            <p>nathan.viau@efrei.net</p>
-            <p>+33 7 44 44 44 44</p>
+            <p><%= user.birthDate %></p>
+            <p><%= user.email %></p>
+            <p><%= user.phoneNumber %></p>
         </div>
     </section>
 
@@ -29,8 +29,13 @@
             </div>
 
             <div class="tickets-mode-container">
-                <%- include("Partials/Ticket") %>
-                <%- include("Partials/Ticket") %>
+                <% if(!flights.Incoming) { %>
+                    <p>You've no incoming flight !</p>
+                <% } else { %>
+                    <% for(let i = 0; i < flights.Incoming.length ; i++){ %>
+                    <%-     include("Partials/Ticket", { info: flights.Incoming[i] })  %>
+                    <% } %>
+                <% } %>
             </div>
         </div>
         
@@ -40,7 +45,13 @@
             </div>
 
             <div class="tickets-mode-container"> 
-                <%- include("Partials/Ticket") %>
+                <% if(!flights.Cancelled) { %>
+                    <p>You've no cancelled flight !</p>
+                <% } else { %>
+                    <% for(let i = 0; i < flights.Cancelled.length ; i++){ %>
+                    <%-     include("Partials/Ticket", { info: flights.Cancelled[i] })  %>
+                    <% } %>
+                <% } %>
             </div>
         </div>
         
@@ -50,7 +61,13 @@
             </div>
             
             <div class="tickets-mode-container">
-                <%- include("Partials/Ticket") %> 
+                <% if(!flights.Done) { %>
+                    <p>You've no past flight !</p>
+                <% } else { %>
+                    <% for(let i = 0; i < flights.Done.length ; i++){ %>
+                    <%-     include("Partials/Ticket", { info: flights.Done[i] })  %>
+                    <% } %>
+                <% } %>
             </div>
         </div>
     </section>

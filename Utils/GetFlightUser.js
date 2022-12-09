@@ -2,6 +2,7 @@ const Flight = require("../Models/Flight")
 const Ticket = require("../Models/Ticket")
 const Client = require("../Models/Client");
 const Airport = require("../Models/Airport");
+const getDate = require("../Utils/GetDate")
 
 module.exports = async (email) => {
     const ticketArr = [], stateTickets = {}
@@ -38,8 +39,18 @@ module.exports = async (email) => {
 
     for (let i = 0; i < ticketArr.length; i++) {
         const state = ticketArr[i].ticket.state;
+        
+        const infoDate = getDate(ticketArr[i].flight.dateDeparture, ticketArr[i].flight.dateArrival)
+        ticketArr[i].flight.hourDeparture = infoDate.hourDeparture;
+        ticketArr[i].flight.hourArrival = infoDate.hourArrival;
+        ticketArr[i].flight.date = infoDate.date;
+        ticketArr[i].flight.travelTime = infoDate.travelTime;
+
+        delete ticketArr[i].flight.dateDeparture 
+        delete ticketArr[i].flight.dateArrival
+
         if(!stateTickets[state]) stateTickets[state] = [ticketArr[i]]
-        else stateTickets[state].push([ticketArr[i]])
+        else stateTickets[state].push(ticketArr[i])
     }
     return stateTickets
 }
