@@ -8,28 +8,34 @@
     <link rel="stylesheet" href="/css/header.css" />
 </head>
 <body>
-    <header class="header-bar-main-container">
-        <div class="header-bar-container">
-            <div class="logo-container">
-                <img src="/assets/logo.png" alt="Logo Lys Flower" />
-                <h1>Lys Flower</h1>
+    <header>
+        <% if (position == "fixed") { %>
+            <div class="header-bar-container header-bar-container-fixed">    
+        <% } else { %>
+            <div class="header-bar-container">
+        <% } %>
+            <div class="header-content">
+                <div class="logo-container">
+                    <img src="/assets/logo.png" alt="Logo Lys Flower" />
+                    <h1>Lys Flower</h1>
+                </div>
+                <nav class="nav-container">
+                    <ul>
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li>
+                            <a href="/member">Member space</a>
+                        </li>
+                        <li>
+                            <a href="/login">Login</a>
+                        </li>
+                        <li>
+                            <a href="/admin">Admin</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-            <nav class="nav-container">
-                <ul>
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/member">Member space</a>
-                    </li>
-                    <li>
-                        <a href="/login">Login</a>
-                    </li>
-                    <li>
-                        <a href="/admin">Admin</a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </header>
 </body>

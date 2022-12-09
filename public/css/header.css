@@ -1,4 +1,4 @@
-.header-bar-main-container {
+.header-bar-container {
     z-index: 1000;
     position: sticky;
     top: 0;
@@ -7,9 +7,14 @@
     color: white !important;
     padding: 10px 0;
     border-bottom: 1px solid #333;
+    width: 100%;
 }
 
-.header-bar-container {
+.header-bar-container-fixed {
+    position: fixed;
+}
+
+.header-content {
     width: 70%;
     margin: auto;
     display: flex;
