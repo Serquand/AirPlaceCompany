@@ -8,7 +8,7 @@ const path = require("path")
 
 const setup = require("./Models/Setup")
 const flightRoutes = require("./Controllers/flight.route")
-const urserRoute = require("./Controllers/flight.route")
+const urserRoute = require("./Controllers/user.route")
 const viewRoutes = require("./Controllers/view.route")
 const getCurrentFlight = require("./Utils/UpdateStatusOfCurrent")
 

@@ -10,12 +10,10 @@ module.exports = sequelize.define("Client", {
 
     name: {
         type: DataTypes.STRING, 
-        allowNull: false
     },
 
     lastname: {
         type: DataTypes.STRING, 
-        allowNull: false
     }, 
 
     email: {
@@ -34,7 +32,6 @@ module.exports = sequelize.define("Client", {
 
     birthDate: {
         type: DataTypes.STRING, 
-        allowNull: false
     }, 
 
     phoneNumber: {
