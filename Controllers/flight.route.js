@@ -45,7 +45,6 @@ router.post("/bought", async (req, res) => {
 
     if(flight == undefined) return res.status(404).json({ information: "This flight doesn't exist" })
     if(!flight.availableSeat) return res.status(401).json({ information: "This flight is already full" })
-    console.log(flight);
 
     for(let i = 0; i < req.body.numberTicket; i++) {
         // Create the ticket 
@@ -53,7 +52,7 @@ router.post("/bought", async (req, res) => {
             price: flight.price, 
             state: "Incoming", 
             numberLuggage: req.body.numberLuggage, 
-            datePurchase: new Date(), 
+            datePurchase: new Date().toString(), 
             seat: flight.availableSeat - i, 
             idFlight: req.body.flight, 
             idClient: req.body.idClient
