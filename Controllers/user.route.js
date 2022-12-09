@@ -22,7 +22,11 @@ router.post("/register", async (req, res) => {
     if(await Clients.count({ where: { email } })) return res.status(401).json({ error: "Email already used." })
 
     const myHashPwd = await bcrypt.hash(password, 10)
-    await Clients.create({ email: email, password: myHashPwd })
+    await Clients.create({ 
+        email, 
+        password: myHashPwd,  
+        isAdmin: 0
+    })
 
     req.session.token = jwt.sign({ userId: email }, process.env.SALT_JWT, { expiresIn: '24h' })
     req.session.user = email

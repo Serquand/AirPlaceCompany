@@ -1,8 +1,8 @@
 const isAdminUtil = require("../Utils/isAdmin")
 const jwt = require("jsonwebtoken")
 
-const isAdmin = (req, res, next) => {
-    if(!isAdminUtil(req.session.user)) return res.status(401).json({ information: "Access denied." });
+const isAdmin = async (req, res, next) => {
+    if(!await isAdminUtil(req.session.user)) return res.status(200).render("NotFound")
     next();
 }
 
@@ -12,11 +12,10 @@ const isAuth = (req, res, next) => {
         const userId = jwt.verify(token, process.env.SALT_JWT).userId;
         const logged = !!(email && email == userId)
         if(logged) return next()
-        res.status(401).json({ information: "Unsuccessfully logged in !" });   
+        return res.status(301).redirect("http://localhost:5000/login")
     } catch  {
-        res.status(401).json({ information: "Unsuccessfully logged in !" });
+        return res.status(301).redirect("http://localhost:5000/login")
     }
-
 }
 
 module.exports = { isAdmin, isAuth }
