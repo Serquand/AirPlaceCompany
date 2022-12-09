@@ -13,7 +13,7 @@ module.exports = async (email) => {
 
     const tickets = await Ticket.findAll({
         where: { idClient: client },
-        attributes: ['state', "seat", "idFlight"]
+        attributes: ['state', "seat", "idFlight", "idTicket"]
     });
 
     for (let ticket of tickets) {

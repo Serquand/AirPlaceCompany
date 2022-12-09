@@ -14,7 +14,13 @@
 
     <div class="info-flight-container">
         <div class="available-seat">
-            <p>Available seat</p>
+            <p>
+                <% if(context == "Admin" || context == "Bought") { %>
+                    Available seat
+                <% } else { %>
+                    Seat <%= info.flight.seat %>
+                <% } %>
+            </p>
             <p><%= info.flight.availableSeat %></p>
         </div>
 
@@ -41,5 +47,19 @@
         </div>
     </div>
 
-    <button class="bought-trip">Buy : 100€</button>
+    <% if(context !== "Cancelled" && context !== "Past") { %> 
+        <% if (context == "Incoming") { %>
+            <button id="button-cancel-ticket-<%= info.ticket.idTicket %>" class="bought-trip">
+        <% } else { %>
+            <button class="bought-trip">
+        <% } %>
+            <% if(context == "Bought") { %> 
+                Buy : 100€
+            <% } else if (context == "Admin") { %> 
+                View
+            <% } else { %>
+                Cancel
+            <% } %>
+        </button>
+    <% } %>
 </div>

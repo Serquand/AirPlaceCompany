@@ -3,6 +3,7 @@
 <head>
     <%- include("Partials/Head") %>
     <link rel="stylesheet" href="/css/MemberSpace.css" />
+    <script defer src="/js/Member.js"></script>
 </head>
 <body>
     <%- include("Partials/header", { position: "sticky" }) %>
@@ -33,7 +34,7 @@
                     <p>You've no incoming flight !</p>
                 <% } else { %>
                     <% for(let i = 0; i < flights.Incoming.length ; i++){ %>
-                    <%-     include("Partials/Ticket", { info: flights.Incoming[i] })  %>
+                    <%-     include("Partials/Ticket", { info: flights.Incoming[i], context: "Incoming" })  %>
                     <% } %>
                 <% } %>
             </div>
@@ -49,7 +50,7 @@
                     <p>You've no cancelled flight !</p>
                 <% } else { %>
                     <% for(let i = 0; i < flights.Cancelled.length ; i++){ %>
-                    <%-     include("Partials/Ticket", { info: flights.Cancelled[i] })  %>
+                    <%-     include("Partials/Ticket", { info: flights.Cancelled[i], context: "Cancelled" })  %>
                     <% } %>
                 <% } %>
             </div>
@@ -65,7 +66,7 @@
                     <p>You've no past flight !</p>
                 <% } else { %>
                     <% for(let i = 0; i < flights.Done.length ; i++){ %>
-                    <%-     include("Partials/Ticket", { info: flights.Done[i] })  %>
+                    <%-     include("Partials/Ticket", { info: flights.Done[i], context: "Past" })  %>
                     <% } %>
                 <% } %>
             </div>
