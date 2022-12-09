@@ -24,15 +24,24 @@
                         <li>
                             <a href="/">Home</a>
                         </li>
+                        
+                        <% if(authType.logged) { %>
                         <li>
                             <a href="/member">Member space</a>
                         </li>
+                        <% } %>
+
+                        <% if(!authType.logged) { %>
                         <li>
                             <a href="/login">Login</a>
                         </li>
+                        <% } %>
+
+                        <% if(authType.admin) { %>
                         <li>
                             <a href="/admin">Admin</a>
                         </li>
+                        <% } %>
                     </ul>
                 </nav>
             </div>

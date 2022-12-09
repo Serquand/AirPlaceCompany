@@ -12,7 +12,8 @@ router.post("/signin", async (req, res) => {
 
     req.session.token = jwt.sign({ userId: user.email }, process.env.SALT_JWT, { expiresIn: '24h' })
     req.session.user = user.email
-    req.session.admin = await isAdmin(user.email)
+    req.session.admin = await isAdmin(user.email);
+
     return res.status(200).json({ information: "Successfully connected !" })    
 })
 
