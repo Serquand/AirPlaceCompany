@@ -26,5 +26,8 @@ form.addEventListener("submit", async (event) => {
     };
     const url = mode == "Login" ? "http://localhost:5000/user/signin" : "http://localhost:5000/user/register"
 
-    await fetch(url, requestOptions)
+    const res = await fetch(url, requestOptions)
+    if(res.status == 200) return window.location.href = "http://localhost:5000/member";
+    if(res.status == 401) return alert((await res.json()).information);
+    if(res.status == 201) return 
 })

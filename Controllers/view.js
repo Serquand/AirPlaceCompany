@@ -8,4 +8,6 @@ const loginView = (req, res) => res.render("Login")
 
 const memberView = (req, res) => res.render("Member")
 
-module.exports = { homeView, adminView, loginView, memberView }
+const notFoundView = (req, res) => res.render("NotFound")
+
+module.exports = { homeView, adminView, loginView, memberView, notFoundView }
