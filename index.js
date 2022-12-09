@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const cors = require("cors")
 const cron = require("node-cron")
-const expressSession = require("express-session");
+const session = require("express-session");
 const path = require("path")
 
 const setup = require("./Models/Setup")
@@ -19,6 +19,11 @@ app.use(cors("*"))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "public")))
+app.use(session({
+    secret: process.env.SESSION_SECRET, 
+    resave: false, 
+    saveUninitialized: false
+}))
 
 app.use("/flight", flightRoutes);
 app.use("/user", urserRoute)
