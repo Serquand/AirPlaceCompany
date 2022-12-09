@@ -1,6 +1,7 @@
 const getInfoUser = require("../Utils/GetInfoUser")
 const getFlightUser = require("../Utils/GetFlightUser")
 const getAirports = require("../Utils/GetAirport")
+const getFlights = require("../Utils/GetFlights")
 
 const util = require("util");
 
@@ -12,8 +13,9 @@ const homeView = async (req, res) => {
 
     // List of the flights and the airports
     const airports = await getAirports()
-
-    res.status(200).render("Home", { authType, airports })
+    const flights = await getFlights();
+    console.log(airports, flights);
+    res.status(200).render("Home", { authType, airports, flights })
 }
 
 const adminView = async (req, res) => {
@@ -24,8 +26,9 @@ const adminView = async (req, res) => {
 
     // List of the flights and the airports
     const airports = await getAirports()
+    const flights = await getFlights();
 
-    res.status(200).render("Admin", { authType, airports })
+    res.status(200).render("Admin", { authType, airports, flights })
 }    
 
 const loginView = (req, res) => {

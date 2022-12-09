@@ -8,7 +8,7 @@ buttons.forEach(button => {
           
         const res = await fetch("http://localhost:5000/flight/cancelTicket/" + id, requestOptions);
         if(res.status == 400) alert('Error')
-        else alert("Success")
+        else window.location.reload();
     })
 });
     

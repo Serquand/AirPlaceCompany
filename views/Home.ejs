@@ -3,6 +3,7 @@
 <head>
     <%- include("Partials/Head") %>
     <link rel="stylesheet" type="text/css" href="/css/Home.css" />
+    <script defer src="/js/Search.js"></script>
 </head>
 <body>
     <%- include("Partials/header", { position: "fixed", authType }) %>
@@ -33,6 +34,14 @@
                             class="input-booking"
                             placeholder="Departure airport"
                         />
+                        <% for(const airport of airports) { %>
+                            <div class="airport-choice">
+                               <p>
+                                    <%= airport.cityName %> 
+                                    <span>(<%= airport.discriminator %>)</span>
+                                </p>
+                            </div>
+                        <% } %>
                     </div>
 
                     <div class="booking-form-component">
@@ -41,26 +50,39 @@
                             class="input-booking"
                             placeholder="Arrival airport"
                         />
+                        <% for(const airport of airports) { %>
+                            <div class="airport-choice">
+                               <p>
+                                    <%= airport.cityName %> 
+                                    <span>(<%= airport.discriminator %>)</span>
+                                </p>
+                            </div>
+                        <% } %>
                     </div>
 
                     <div class="booking-form-component">
                         <input 
                             type="date"
-                            class="input-booking"
-                            format="dd/mm/yyyy"
+                            class="input-booking"                        
                         />
                     </div>
                 </div>
 
                 <button 
-                    type="submit" 
+                    type="button" 
                     class="booking-form-component button-booking-form button"
+                    id="button-search-flight"
                 >Search</button>
             </form>
         </div>
 
         <div class="tickets-container">
-            
+            <h2>What we found for you</h2>
+            <div id="buy-tickets">
+                <% for(let i = 0; i < flights.length; i++) { %>
+                    <%- include("Partials/Ticket", { info: flights[i], context: "Bought" }) %>
+                <% } %>
+            </div>
         </div>
     </div>
 </body>
