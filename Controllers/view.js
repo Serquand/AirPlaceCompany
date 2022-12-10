@@ -61,4 +61,12 @@ const notFoundView = (req, res) => {
     res.status(200).render("NotFound", { authType })
 }
 
-module.exports = { homeView, adminView, loginView, memberView, notFoundView }
+const logOut = (req, res) => {  
+    req.session.token = ""
+    req.session.user = ""
+    req.session.admin = false
+
+    res.redirect(process.env.URL)
+}
+
+module.exports = { homeView, adminView, loginView, memberView, notFoundView, logOut }

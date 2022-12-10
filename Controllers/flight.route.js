@@ -3,8 +3,18 @@ const router = express.Router();
 const Flight = require('../Models/Flight');
 const Ticket = require("../Models/Ticket")
 const Airport = require("../Models/Airport")
+const Client = require("../Models/Client")
 const sequelize = require("../Models/Connection")
 const { isAuth, isAdmin } = require("./auth");
+
+const addClientId = async (req, res, next) => {
+    const clientId = (await Client.findOne({
+        where: { email: req.session.user }, 
+        attributes: ["idClient"]
+    }))?.idClient;
+
+    req.body.idClient = clientId;
+}
 
 // We are gonna to create a new flight
 router.post("/createFlight", isAdmin, async (req, res) => {
@@ -37,7 +47,7 @@ router.patch("/cancelFlight/:idFlight", isAdmin, async (req, res) => {
 })
 
 //Ticket bought 
-router.post("/bought", isAuth, async (req, res) => {
+router.post("/bought", isAuth, addClientId, async (req, res) => {
     // If the flight is full, or the flight is not exist, return error
     const flight = (await Flight.findOne({ 
         where: { idFlight: req.body.flight }, 
@@ -52,7 +62,7 @@ router.post("/bought", isAuth, async (req, res) => {
         Ticket.create({
             price: flight.price, 
             state: "Incoming", 
-            numberLuggage: req.body.numberLuggage, 
+            numberLuggage: 1, 
             datePurchase: new Date().toString(), 
             seat: flight.availableSeat - i, 
             idFlight: req.body.flight, 
