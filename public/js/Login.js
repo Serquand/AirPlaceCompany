@@ -24,10 +24,10 @@ form.addEventListener("submit", async (event) => {
             pwd: inputPassword.value
         })
     };
-    const url = mode == "Login" ? "http://localhost:5000/user/signin" : "http://localhost:5000/user/register"
+    const url = mode == "Login" ? "/user/signin" : "/user/register"
 
     const res = await fetch(url, requestOptions)
-    if(res.status == 200) return window.location.href = "http://localhost:5000/member";
+    if(res.status == 200) return window.location.href = "/member";
     if(res.status == 401) return alert((await res.json()).information);
     if(res.status == 201) return 
 })

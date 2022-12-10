@@ -12,9 +12,9 @@ const isAuth = (req, res, next) => {
         const userId = jwt.verify(token, process.env.SALT_JWT).userId;
         const logged = !!(email && email == userId)
         if(logged) return next()
-        return res.status(301).redirect("http://localhost:5000/login")
+        return res.status(301).redirect(process.env.URL + "login")
     } catch  {
-        return res.status(301).redirect("http://localhost:5000/login")
+        return res.status(301).redirect(process.env.URL + "login")
     }
 }
 
