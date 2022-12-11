@@ -77,42 +77,12 @@ router.post("/bought", isAuth, addClientId, async (req, res) => {
     return res.status(201).json({ information: "Succesfully purchased" })
 })
 
-// Get the info of a flight for an admin 
-router.get("/info/:idFlight", isAdmin, async (req, res) => {
-    if(!req.params.idFlight) return res.status(401).json({ information: "Invalid erquest" });
-
-    // Get basis information on the flight
-    const flight = (await Flight.findOne({ where: { idFlight: req.params.idFlight } }))?.dataValues
-    if(flight == undefined) return res.status(404).json({ information: "Failed to find the flight" });
-
-    // Get the different airport
-    flight.arrival = (await Airport.findOne({ 
-        where: { idAirport: flight.idAirportArrival }, 
-        attributes: ["airportName", "cityName", "country"] 
-    }))?.dataValues
-    delete flight.idAirportArrival;
-
-    flight.departure = (await Airport.findOne({ 
-        where: { idAirport: flight.idAirportDeparture }, 
-        attributes: ["airportName", "cityName", "country"] 
-    }))?.dataValues
-    delete flight.idAirportDeparture
-
-    // Get the client of the flight
-    const [results] = await sequelize.query(`
-        SELECT * FROM Clients, Tickets 
-        WHERE Tickets.idFlight = ${req.params.idFlight}
-        AND Tickets.idClient = Clients.idClient;
-    `);
-    flight.clients = results
-
-    return res.status(200).json({ flight })
-})
 
 // We are gonna to update a flight price
 router.put("/:idFlight", isAdmin, async (req, res) => {
     // Check if the params idFlight and the price is correct are correct
-    if(!req.params.idFlight || !req.body.price) return res.status(401).json({ information: "Invalid request !" })
+    if(!req.params.idFlight || !req.body.price || req.body.price == "" || !typeof(req.body.price) == "number") 
+        return res.status(400).json({ information: "Invalid request !" })
 
     // Check the status of the flight
     const flight = (await Flight.findOne({ 

@@ -2,10 +2,56 @@
 <html lang="en">
 <head>
     <%- include("Partials/Head") %>
-    <link rel="stylesheet" href="/css/Login.css" />
+    <link rel="stylesheet" href="/css/InfoFlight.css" />
+    <script defer src="/js/InfoFlight.js"></script>
 </head>
 <body>
     <%- include("Partials/header", { position: "sticky" }) %>
+    <main>
+        <section class="main-info-flight">
+            <a href="/admin">
+                < Admin
+            </a>
+            <%- include("Partials/Ticket", { info: flight, context: "Admin" }) %>
 
+            <div class="button-container">
+                <button><%= flight.flight.price %>€</button>
+                <button>Cancel</button>
+            </div>
+
+        </section>
+
+        <section class="users-list">
+            <h2>Clients of this flight</h2>
+            <% if(users.length == 0) { %>
+                <p>This flight doesn't have any client</p>
+            <% } else { %> 
+                <ul>
+                    <% for(let i = 0; i < users.length; i++) { %>
+                        <li>
+                            <p>
+                                <span><%= users[i].name %></span>
+                                <span><%= users[i].lastname %></span>
+                            </p>
+                        </li>
+                    <% } %>
+                </ul>
+            <% } %>
+        </section>
+    </main>
+
+    <div id="modal-price">
+        <div class="layout"></div>
+        <div class="modal-content">
+            <h2>Change the price</h2>
+
+            <label for="phone-add" class="champ-form">
+                <img src="/assets/price.png" alt="Price" />
+                <input id="phone-add" placeholder="Price" type="text" />
+            </label>
+
+            <button>Submit</button>
+        </div>
+    </div>
 </body>
 </html>

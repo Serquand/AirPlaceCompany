@@ -4,11 +4,9 @@ const getDate = require("../Utils/GetDate")
 
 module.exports = async (idFlight) => {
     let flight = (await Flight.findOne({
-        attributes: ["availableSeat", "idFlight", "idAirportDeparture", "idAirportArrival", "dateDeparture", "dateArrival"], 
+        attributes: ["availableSeat", "price", "idFlight", "idAirportDeparture", "idAirportArrival", "dateDeparture", "dateArrival"], 
         where: { idFlight }
     }))?.dataValues;
-    
-    console.log(idFlight);
 
     const airportDeparture = (await Airport.findOne({
         where: { idAirport: flight.idAirportDeparture }, 
