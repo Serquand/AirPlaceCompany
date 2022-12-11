@@ -195,9 +195,9 @@ button[type="button"] {
 
 .modal-content {
     position: fixed;
-    top: 35%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%);
+    transform: translate(-50%, -50%);
     padding: 50px;
     background-color: #fff;
     z-index: 155555155555;

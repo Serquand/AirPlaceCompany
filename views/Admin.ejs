@@ -81,10 +81,123 @@
             </div>
         </section>
     </main>
+
     <div id="modal-create-flight">
         <div class="layout"></div>
         <div class="modal">
+            <h2>Add a flight</h2>
+            <form>
+                <section class="departure-section">
+                    <h3>Departure</h3>
+                    <div class="booking-form-component">
+                        <input 
+                            type="date"
+                            class="input-booking"     
+                            id="date-departure-create"                   
+                        />
+                    </div>
 
+                    <div class="booking-form-component">
+                        <input 
+                            type="time"
+                            class="input-booking"     
+                            id="time-departure-create"                   
+                        />
+                    </div>
+
+                    <div class="booking-form-component">
+                        <input 
+                            type="text"
+                            class="input-booking"
+                            placeholder="Departure airport"
+                            id="departure-aiport-choice"
+                        />
+                        <% for(const airport of airports) { %>
+                            <div class="airport-choice">
+                                <p>
+                                    <%= airport.cityName %> 
+                                    <span>(<%= airport.discriminator %>)</span>
+                                </p>
+                            </div>
+                        <% } %>
+                    </div>
+                </section>
+
+                <section class="arrival-section">
+                    <h3>Arrival</h3>
+                    <div class="booking-form-component">
+                        <input 
+                            type="date"
+                            class="input-booking"     
+                            id="date-arrival-create"                   
+                        />
+                    </div>
+
+                    <div class="booking-form-component">
+                        <input 
+                            type="time"
+                            class="input-booking"     
+                            id="time-arrival-create"                   
+                        />
+                    </div>
+
+                    <div class="booking-form-component">
+                        <input 
+                            type="text"
+                            class="input-booking"
+                            placeholder="Arrival airport"
+                            id="arrival-aiport-choice"
+                        />
+                        <% for(const airport of airports) { %>
+                            <div class="airport-choice">
+                                <p>
+                                    <%= airport.cityName %> 
+                                    <span>(<%= airport.discriminator %>)</span>
+                                </p>
+                            </div>
+                        <% } %>
+                    </div>
+                </section>
+
+                <section class="information-section">
+                    <h3>Generation information</h3>
+                    <div class="booking-form-component">
+                        <input 
+                            type="text"
+                            class="input-booking"     
+                            id="price-create"
+                            placeholder="Price"                   
+                        />
+                    </div>
+
+                    <div class="booking-form-component">
+                        <input 
+                            type="text"
+                            class="input-booking"
+                            id="seat-create"
+                            placeholder="Seat"   
+                        />
+                    </div>
+
+                    <div class="booking-form-component-label">
+                        <input 
+                            type="checkbox"
+                            id="meal-create"   
+                        />
+                        <label for="meal-create">Meal</label>
+                    </div>
+
+                    <div class="booking-form-component-label">
+                        <input 
+                            type="checkbox"
+                            id="wifi-create"   
+                        />
+                        <label for="wifi-create">Wifi</label>
+                    </div>
+                </section>
+
+                <button id="create-flight-button">Submit</button>
+            </form>
         </div>
     </div>
 </body>
