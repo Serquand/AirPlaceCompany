@@ -15,7 +15,7 @@ form h2 {
     font-weight: 600;
 }
 
-form > :last-child {
+.login-space form > :last-child {
     color: white;
     text-decoration: underline;
     padding-top: 15px;
@@ -57,7 +57,7 @@ input::placeholder {
     padding: 0px 10px 0px;
 }
 
-[type="submit"] {
+button {
     width: 150px;
     height: 35px;
     border: none;
@@ -68,4 +68,54 @@ input::placeholder {
     font-size: 15px;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+.welcome-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 1515151;
+    text-align: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.welcome-modal > div {
+    padding: 50px;
+    position: relative;
+}
+
+.welcome-content {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: center;
+}
+
+.welcome-content button {
+    margin-top: 20px;
+}
+
+.welcome-content h2 {
+    font-variant-caps: petite-caps;
+    font-size: 25px;
+    letter-spacing: 2px;
+}
+
+.info-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateX(100%);
+    animation: apparition 1s ease-out forwards;
+}
+
+@keyframes apparition {
+    to {
+        transform: translateX(0);
+    }
 }

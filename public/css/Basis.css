@@ -81,3 +81,13 @@
     text-transform: uppercase;
     cursor: pointer;
 }
+
+.layout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(50, 50, 50, .8);
+    z-index: 151515;
+}
