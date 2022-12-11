@@ -1,67 +1,44 @@
-const container = document.querySelectorAll(".booking-form-component");
+const container = document.querySelectorAll(".booking-form-component.search-airport");
 const tickets = document.querySelectorAll("#buy-tickets > div")
-
-container[0].querySelector("input").addEventListener("input", (event) => {
-    let pos = 0;
-    const airports = container[0].querySelectorAll(".airport-choice");
-    for (const airport of airports) {
-        if(event.target.value.length == 0) {
-            airport.style.display = "none"
-            continue
-        }
-        
-        if(airport.innerText.split("(")[0].trim().toUpperCase().startsWith(event.target.value.toUpperCase())) {
-            airport.style.display = "block";
-            airport.style.transform = `translateY(${++pos}00%)`
-            continue
-        }
-        
-        airport.style.display = "none" 
-    }
-});
-
-container[1].querySelector("input").addEventListener("input", (event) => {
-    let pos = 0;
-    const airports = container[1].querySelectorAll(".airport-choice");
-    for (const airport of airports) {
-        if(event.target.value.length == 0) {
-            airport.style.display = "none"
-            continue
-        }
-        
-        if(airport.innerText.split("(")[0].trim().toUpperCase().startsWith(event.target.value.toUpperCase()) || pos <= 5) {
-            airport.style.display = "block";
-            airport.style.transform = `translateY(${++pos}00%)`
-            continue;
-        }
-        
-        airport.style.display = "none" 
-    }
-});
 
 for(let i = 0; i < Math.min(10, tickets.length); i++) tickets[i].style.display = "flex";
 
-const allArrival = container[1].querySelectorAll(".airport-choice");
-allArrival.forEach((airport) => {
-    airport.addEventListener("click", (event) => {
-        if(event.target.innerText.includes("(")) container[1].querySelector("input").value = event.target.innerText;
-        else container[1].querySelector("input").value = event.target.parentNode.innerText;
-        allArrival.forEach((airport) => {
-            airport.style.display = "none";
-        })  
-    })
-})
+for (const c of container) {
+    console.log(c);
+    c.querySelector("input").addEventListener("input", (event) => {
+        let pos = 0;
+        const airports = c.querySelectorAll(".airport-choice");
+        for (const airport of airports) {
+            if(event.target.value.length == 0) {
+                airport.style.display = "none"
+                continue
+            }
+            
+            if(pos == 5) break;
+    
+            if(airport.innerText.split("(")[0].trim().toUpperCase().startsWith(event.target.value.toUpperCase())) {
+                airport.style.display = "block";
+                airport.style.transform = `translateY(${++pos}00%)`
+                continue;
+            }
+            
+            airport.style.display = "none" 
+        }
+    });
+}
 
-const allDeparture = container[0].querySelectorAll(".airport-choice");
-allDeparture.forEach((airport) => {
-    airport.addEventListener("click", (event) => {
-        if(event.target.innerText.includes("(")) container[0].querySelector("input").value = event.target.innerText;
-        else container[0].querySelector("input").value = event.target.parentNode.innerText;
-        allDeparture.forEach((airport) => {
-            airport.style.display = "none";
-        })  
+for (const c of container) {
+    const allAirport = c.querySelectorAll(".airport-choice")
+    allAirport.forEach((airport) => {
+        airport.addEventListener("click", (event) => {
+            if(event.target.innerText.length !== 5) c.querySelector("input").value = event.target.innerText;
+            else c.querySelector("input").value = event.target.parentNode.innerText;
+            allAirport.forEach((airport) => {
+                airport.style.display = "none";
+            })  
+        })
     })
-})
+}
 
 document.querySelector("#button-search-flight").addEventListener("click", () => {
     const airportArrival = document.getElementById("arrival-aiport-choice").value
