@@ -236,3 +236,7 @@ button {
 .modal-bought {
     display: none;
 }
+
+#buy-tickets > div {
+    display: none;
+}
