@@ -1,0 +1,32 @@
+main {
+    position: relative;
+    width: 80%;
+    margin: auto;
+    padding-top: 35px;
+}
+
+#modal-create-flight {
+    display: none;
+}
+
+#create-flight {
+    position: absolute;
+    right: 0;
+}
+
+button {
+    width: 150px;
+    height: 35px;
+    border: none;
+    outline: none;
+    background-color: #163767;
+    color: white;
+    font-weight: 600;
+    font-size: 15px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.booking {
+    padding-top: 35px;
+}

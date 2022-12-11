@@ -5,75 +5,86 @@
     <link rel="stylesheet" type="text/css" href="/css/Home.css" />
     <script defer src="/js/Search.js"></script>
     <script defer src="/js/Admin.js"></script>
+    <link rel="stylesheet" href="/css/Admin.css" />
 </head>
 <body>
-    <%- include("Partials/header", { position: "fixed", authType }) %>
+    <%- include("Partials/header", { position: "sticky", authType }) %>
+    <main>
+        <button id="create-flight">Create</button>
+        <section>
+            <div class="booking">
+                <div class="info"></div>
 
-    <div class="booking">
-        <div class="info"></div>
-
-        <div class="booking">
-            <h2>Make a search</h2>
-            <form>
-                <div class="attributes-form">
-                    <div class="booking-form-component">
-                        <input 
-                            type="text"
-                            class="input-booking"
-                            placeholder="Departure airport"
-                            id="departure-airport-choice"
-                        />
-                        <% for(const airport of airports) { %>
-                            <div class="airport-choice">
-                               <p>
-                                    <%= airport.cityName %> 
-                                    <span>(<%= airport.discriminator %>)</span>
-                                </p>
+                <div class="booking">
+                    <h2>Make a search</h2>
+                    <form>
+                        <div class="attributes-form">
+                            <div class="booking-form-component">
+                                <input 
+                                    type="text"
+                                    class="input-booking"
+                                    placeholder="Departure airport"
+                                    id="departure-airport-choice"
+                                />
+                                <% for(const airport of airports) { %>
+                                    <div class="airport-choice">
+                                    <p>
+                                            <%= airport.cityName %> 
+                                            <span>(<%= airport.discriminator %>)</span>
+                                        </p>
+                                    </div>
+                                <% } %>
                             </div>
-                        <% } %>
-                    </div>
 
-                    <div class="booking-form-component">
-                        <input 
-                            type="text"
-                            class="input-booking"
-                            placeholder="Arrival airport"
-                            id="arrival-aiport-choice"
-                        />
-                        <% for(const airport of airports) { %>
-                            <div class="airport-choice">
-                               <p>
-                                    <%= airport.cityName %> 
-                                    <span>(<%= airport.discriminator %>)</span>
-                                </p>
+                            <div class="booking-form-component">
+                                <input 
+                                    type="text"
+                                    class="input-booking"
+                                    placeholder="Arrival airport"
+                                    id="arrival-aiport-choice"
+                                />
+                                <% for(const airport of airports) { %>
+                                    <div class="airport-choice">
+                                    <p>
+                                            <%= airport.cityName %> 
+                                            <span>(<%= airport.discriminator %>)</span>
+                                        </p>
+                                    </div>
+                                <% } %>
                             </div>
-                        <% } %>
-                    </div>
 
-                    <div class="booking-form-component">
-                        <input 
-                            type="date"
-                            class="input-booking"     
-                            id="date-choice"                   
-                        />
-                    </div>
+                            <div class="booking-form-component">
+                                <input 
+                                    type="date"
+                                    class="input-booking"     
+                                    id="date-choice"                   
+                                />
+                            </div>
+                        </div>
+
+                        <button 
+                            type="button" 
+                            class="booking-form-component button-booking-form button"
+                            id="button-search-flight"
+                        >Search</button>
+                    </form>
                 </div>
 
-                <button 
-                    type="button" 
-                    class="booking-form-component button-booking-form button"
-                    id="button-search-flight"
-                >Search</button>
-            </form>
-        </div>
-
-        <div class="tickets-container">
-            <h2>What we found for you</h2>
-            <div id="buy-tickets">
-                <% for(let i = 0; i < flights.length; i++) { %>
-                    <%- include("Partials/Ticket", { info: flights[i], context: "Admin" }) %>
-                <% } %>
+                <div class="tickets-container">
+                    <h2>What we found for you</h2>
+                    <div id="buy-tickets">
+                        <% for(let i = 0; i < flights.length; i++) { %>
+                            <%- include("Partials/Ticket", { info: flights[i], context: "Admin" }) %>
+                        <% } %>
+                    </div>
+                </div>
             </div>
+        </section>
+    </main>
+    <div id="modal-create-flight">
+        <div class="layout"></div>
+        <div class="modal">
+
         </div>
     </div>
 </body>

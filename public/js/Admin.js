@@ -1,4 +1,6 @@
 const ticketsView = document.querySelectorAll(".bought-trip");
+const createFlightButton = document.querySelector("#create-flight")
+const modalCreate = document.querySelector('#modal-create-flight')
 
 ticketsView.forEach(ticket => {
     ticket.addEventListener("click", event => {
@@ -6,3 +8,5 @@ ticketsView.forEach(ticket => {
         window.location.href = "/infoFlight/ " + idFlight
     })
 })
+
+createFlightButton.addEventListener("click", () => modalCreate.style.display = "block");
