@@ -1,4 +1,4 @@
-const tickets = document.querySelectorAll(".bought-trip");
+const ticketsBought = document.querySelectorAll(".bought-trip");
 const modalBought = document.querySelector(".modal-bought");
 const select = document.querySelector("select");
 const priceDisplay = document.querySelector("#price-for-tickets")
@@ -6,7 +6,7 @@ const confirmBoughtButton = document.querySelector("#confirm-trade")
 
 let idFlight, price;
 
-tickets.forEach(ticket => {
+ticketsBought.forEach(ticket => {
     ticket.addEventListener("click", event => {
         idFlight = event.target.id.split("-")[2];
         price = document.querySelector("#button-ticket-" + idFlight).innerText.split(":")[1].trim().split("€")[0]

@@ -4,7 +4,6 @@ const tickets = document.querySelectorAll("#buy-tickets > div")
 for(let i = 0; i < Math.min(10, tickets.length); i++) tickets[i].style.display = "flex";
 
 for (const c of container) {
-    console.log(c);
     c.querySelector("input").addEventListener("input", (event) => {
         let pos = 0;
         const airports = c.querySelectorAll(".airport-choice");
