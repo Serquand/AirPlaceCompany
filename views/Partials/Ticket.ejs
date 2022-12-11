@@ -51,7 +51,7 @@
         <% if (context == "Incoming") { %>
             <button id="button-cancel-ticket-<%= info.ticket.idTicket %>" class="bought-trip">
         <% } else { %>
-            <button class="bought-trip">
+            <button class="bought-trip" id="button-ticket-<%= info.flight.idFlight %>">
         <% } %>
             <% if(context == "Bought") { %> 
                 Buy : 100€
