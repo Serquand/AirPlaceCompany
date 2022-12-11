@@ -6,7 +6,7 @@ const { isAuth, isAdmin } = require("./auth")
 
 router.get("/", homeView);
 router.get("/login", loginView);
-router.get("/admin", isAuth, isAdmin, adminView);
+router.get("/admin", isAdmin, adminView);
 router.get("/member", isAuth, memberView);
 router.get("/logout", isAuth, logOut)
 router.use(notFoundView);

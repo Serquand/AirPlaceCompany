@@ -14,7 +14,7 @@ const homeView = async (req, res) => {
     // List of the flights and the airports
     const airports = await getAirports()
     const flights = await getFlights();
-    console.log(airports, flights);
+
     res.status(200).render("Home", { authType, airports, flights })
 }
 
@@ -54,11 +54,11 @@ const memberView = async (req, res) => {
 
 const notFoundView = (req, res) => {
     const authType = {
-        logged: req.session.user ? false : true, 
-        admin: req.session.admin ? false : true
+        logged: req.session.user ? true : false, 
+        admin: req.session.admin ? true : false,
     }
 
-    res.status(200).render("NotFound", { authType })
+    res.status(404).render("NotFound", { authType })
 }
 
 const logOut = (req, res) => {  
