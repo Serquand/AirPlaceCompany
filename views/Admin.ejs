@@ -2,12 +2,18 @@
 <html lang="en">
 <head>
     <%- include("Partials/Head") %>
-    <script src="/js/Search.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/Home.css" />
+    <script defer src="/js/Search.js"></script>
+    <script defer src="/js/Admin.js"></script>
 </head>
 <body>
-    <%- include("Partials/header", { position: "sticky" }) %>
-    <main>
-        <section>
+    <%- include("Partials/header", { position: "fixed", authType }) %>
+
+    <div class="booking">
+        <div class="info"></div>
+
+        <div class="booking">
+            <h2>Make a search</h2>
             <form>
                 <div class="attributes-form">
                     <div class="booking-form-component">
@@ -15,6 +21,7 @@
                             type="text"
                             class="input-booking"
                             placeholder="Departure airport"
+                            id="departure-airport-choice"
                         />
                         <% for(const airport of airports) { %>
                             <div class="airport-choice">
@@ -31,6 +38,7 @@
                             type="text"
                             class="input-booking"
                             placeholder="Arrival airport"
+                            id="arrival-aiport-choice"
                         />
                         <% for(const airport of airports) { %>
                             <div class="airport-choice">
@@ -45,7 +53,8 @@
                     <div class="booking-form-component">
                         <input 
                             type="date"
-                            class="input-booking"                        
+                            class="input-booking"     
+                            id="date-choice"                   
                         />
                     </div>
                 </div>
@@ -56,7 +65,16 @@
                     id="button-search-flight"
                 >Search</button>
             </form>
-        </section>
-    </main>
+        </div>
+
+        <div class="tickets-container">
+            <h2>What we found for you</h2>
+            <div id="buy-tickets">
+                <% for(let i = 0; i < flights.length; i++) { %>
+                    <%- include("Partials/Ticket", { info: flights[i], context: "Admin" }) %>
+                <% } %>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
