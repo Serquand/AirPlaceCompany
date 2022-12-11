@@ -1,9 +1,9 @@
-const getInfoUser = require("../Utils/GetInfoUser")
-const getFlightUser = require("../Utils/GetFlightUser")
-const getAirports = require("../Utils/GetAirport")
-const getFlights = require("../Utils/GetFlights")
-
-const util = require("util");
+const getInfoUser = require("../Utils/GetInfoUser");
+const getFlightUser = require("../Utils/GetFlightUser");
+const getAirports = require("../Utils/GetAirport");
+const getFlights = require("../Utils/GetFlights");
+const getAFlight = require("../Utils/GetAFlight");
+const getUsersOfFlight = require("../Utils/GetUsersOfFlight");
 
 const homeView = async (req, res) => {
     const authType = {
@@ -75,7 +75,10 @@ const infoFlightView = async (req, res) => {
         admin: true,
     }
 
-    res.render("InfoFlight", { authType })
+    const flight = await getAFlight(req.params.idFlight)
+    const users = await getUsersOfFlight(req.params.idFlight)
+    
+    res.render("InfoFlight", { authType, flight, users })
 }
 
 module.exports = { homeView, adminView, loginView, memberView, notFoundView, logOut, infoFlightView }
