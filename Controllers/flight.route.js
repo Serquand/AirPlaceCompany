@@ -14,6 +14,7 @@ const addClientId = async (req, res, next) => {
     }))?.idClient;
 
     req.body.idClient = clientId;
+    next();
 }
 
 // We are gonna to create a new flight

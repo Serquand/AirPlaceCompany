@@ -4,6 +4,7 @@
     <%- include("Partials/Head") %>
     <link rel="stylesheet" type="text/css" href="/css/Home.css" />
     <script defer src="/js/Search.js"></script>
+    <script defer src="/js/Home.js"></script>
 </head>
 <body>
     <%- include("Partials/header", { position: "fixed", authType }) %>
@@ -83,6 +84,37 @@
                     <%- include("Partials/Ticket", { info: flights[i], context: "Bought" }) %>
                 <% } %>
             </div>
+        </div>
+    </div>
+
+    <div class="modal modal-bought">
+        <div class="layout"></div>
+        <div class="modal-content">
+            <% if(!authType.logged) { %>
+                <div class="unlogged">
+                    <p>To buy a ticket, you need to be logged in !</p>
+                    <a href="/login">
+                        <button>Login</button>
+                    </a>
+                </div>
+            <% } else { %>
+                <div class="logged">
+                    <p>Select the number of tickets you wanna buy (limited to 6)</p>
+                    <select name="number-tickets" id="number-tickets">
+                        <option value="1">1 ticket</option>
+                        <option value="2">2 tickets</option>
+                        <option value="3">3 tickets</option>
+                        <option value="4">4 tickets</option>
+                        <option value="5">5 tickets</option>
+                        <option value="6">6 tickets</option>
+                    </select>
+
+                    <button id="confirm-trade">
+                        Buy
+                        <span id="price-for-tickets"></span>€
+                    </button>
+                </div>
+            <% } %>
         </div>
     </div>
 </body>
