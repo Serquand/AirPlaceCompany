@@ -69,4 +69,13 @@ const logOut = (req, res) => {
     res.redirect(process.env.URL)
 }
 
-module.exports = { homeView, adminView, loginView, memberView, notFoundView, logOut }
+const infoFlightView = async (req, res) => {
+    const authType = {
+        logged: true, 
+        admin: true,
+    }
+
+    res.render("InfoFlight", { authType })
+}
+
+module.exports = { homeView, adminView, loginView, memberView, notFoundView, logOut, infoFlightView }
