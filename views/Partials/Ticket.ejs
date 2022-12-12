@@ -54,7 +54,7 @@
             <button class="bought-trip" id="button-ticket-<%= info.flight.idFlight %>">
         <% } %>
             <% if(context == "Bought") { %> 
-                Buy : 100€
+                Buy : <%= info.flight.price %>€
             <% } else if (context == "Admin") { %> 
                 View
             <% } else { %>

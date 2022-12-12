@@ -6,7 +6,7 @@ module.exports = async () => {
     const flightsArr = [];
 
     const flights = await Flight.findAll({
-        attributes: ["availableSeat", "idFlight", "idAirportDeparture", "idAirportArrival", "dateDeparture", "dateArrival"], 
+        attributes: ["availableSeat", "price", "idFlight", "idAirportDeparture", "idAirportArrival", "dateDeparture", "dateArrival"], 
         where: { state: "Incoming" }
     });
     
