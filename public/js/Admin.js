@@ -43,7 +43,7 @@ const createFlight = async () => {
 
     const res = await fetch("/flight/createFlight", requestOptions)
     
-    if(res.status !== 200) {
+    if(res.status !== 201) {
         const alertModal = document.querySelector(".modal-alert")
         alertModal.style.display = "block";
         alertModal.querySelector("p").innerText = (await res.json()).information;
