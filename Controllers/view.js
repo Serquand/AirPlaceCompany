@@ -81,4 +81,13 @@ const infoFlightView = async (req, res) => {
     res.render("InfoFlight", { authType, flight, users })
 }
 
-module.exports = { homeView, adminView, loginView, memberView, notFoundView, logOut, infoFlightView }
+const about = (req, res) => {
+    const authType = {
+        logged: true, 
+        admin: true,
+    }
+
+    res.render("About", { authType })    
+}
+
+module.exports = { homeView, adminView, loginView, memberView, notFoundView, logOut, infoFlightView, about }
