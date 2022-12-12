@@ -32,5 +32,13 @@ confirmBoughtButton?.addEventListener("click", async event => {
         })
     };
 
-    await fetch("/flight/bought", requestOptions);
+    const res = await fetch("/flight/bought", requestOptions);
+
+    if(res.status != 201) {
+        const alertModal = document.querySelector(".modal-alert")
+        alertModal.style.display = "block";
+        alertModal.querySelector("p").innerText = (await res.json()).information;
+    }
+
+    window.location.href = "/member";
 })

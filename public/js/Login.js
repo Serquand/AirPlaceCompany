@@ -38,9 +38,14 @@ form.addEventListener("submit", async (event) => {
     const url = mode == "Login" ? "/user/signin" : "/user/register"
 
     const res = await fetch(url, requestOptions)
+    
     if(res.status == 200) return window.location.href = "/member";
-    if(res.status == 401) return alert((await res.json()).information);
-    if(res.status == 201) {
+    else if(res.status == 401 || res.status == 400) {
+        const alertModal = document.querySelector(".modal-alert")
+        alertModal.style.display = "block";
+        alertModal.querySelector("p").innerText = (await res.json()).information;
+        return;
+    } else if(res.status == 201) {
         welcomeModal.style.display = "block";
         infoPage.style.display = "none";
         return;
@@ -70,5 +75,9 @@ addSubmit.addEventListener("click", async (event) => {
     };
 
     const res = await fetch("/user/addInfo", requestOptions)
-    if(res.status == 200) window.location.href = "/member"
+    if(res.status == 200) return window.location.href = "/member"
+    
+    const alertModal = document.querySelector(".modal-alert")
+    alertModal.style.display = "block";
+    alertModal.querySelector("p").innerText = (await res.json()).information;
 })

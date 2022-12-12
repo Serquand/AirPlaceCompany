@@ -7,7 +7,11 @@ buttons.forEach(button => {
         };
           
         const res = await fetch("/flight/cancelTicket/" + id, requestOptions);
-        if(res.status == 400) alert('Error')
+        if(res.status == 400) {
+            const alertModal = document.querySelector(".modal-alert")
+            alertModal.style.display = "block";
+            alertModal.querySelector("p").innerText = (await res.json()).information;
+        }
         else window.location.reload();
     })
 });

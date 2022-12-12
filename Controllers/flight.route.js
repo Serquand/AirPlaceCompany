@@ -38,7 +38,7 @@ const matchingAirport = async (req, res, next) => {
     }
 
     if(req.body.airportArrival === req.body.airportDeparture) {
-        return res.status(401).json({ information: "The airport arrival and the airport departure cannot be the same" })
+        return res.status(400).json({ information: "The airport arrival and the airport departure cannot be the same" })
     }
 
     next();
@@ -101,7 +101,7 @@ router.post("/bought", isAuth, addClientId, async (req, res) => {
     }))?.dataValues
 
     if(flight == undefined) return res.status(404).json({ information: "This flight doesn't exist" })
-    if(!flight.availableSeat) return res.status(401).json({ information: "This flight is already full" })
+    if(!flight.availableSeat) return res.status(400).json({ information: "This flight is already full" })
 
     for(let i = 0; i < req.body.numberTicket; i++) {
         // Create the ticket 

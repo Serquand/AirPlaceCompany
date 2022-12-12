@@ -18,7 +18,13 @@ submitPrice.addEventListener("click", async () => {
         })
     }
     const res = await fetch("/flight/" + idFlight, requestOptions)
-    if(res.status == 400) return
+    if(res.status == 400) {
+        const alertModal = document.querySelector(".modal-alert")
+        alertModal.style.display = "block";
+        alertModal.querySelector("p").innerText = (await res.json()).information;
+        return
+    }
+
     priceChangerButton.innerText = priceInput.value + "€"
     priceModal.style.display = "none"
 });

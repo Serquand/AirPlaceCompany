@@ -15,21 +15,21 @@ router.post("/signin", async (req, res) => {
         });
 
     if(!resDb || !bcrypt.compareSync(user.password, resDb.dataValues.password)) 
-        return res.status(401).send({ error: "Wrong email or password" })
+        return res.status(401).json({ information: "Wrong email or password" })
 
     req.session.token = jwt.sign({ userId: user.email }, process.env.SALT_JWT, { expiresIn: '24h' })
     req.session.user = user.email
     req.session.admin = await isAdmin(user.email);
 
-    if(!resDb.dataValues.name) return res.status(201).send({ information: "Missing information" });
+    if(!resDb.dataValues.name) return res.status(201).json({ information: "Missing information" });
 
     return res.status(200).json({ information: "Successfully connected !" })    
 })
 
 router.post("/register", async (req, res) => {
     let email = req.body.email, password = req.body.pwd
-    if(!checkMail(email)) return res.status(401).send({ message: "Unvalid email." })
-    if(await Clients.count({ where: { email } })) return res.status(401).json({ error: "Email already used." })
+    if(!checkMail(email)) return res.status(401).json({ information: "Unvalid email." })
+    if(await Clients.count({ where: { email } })) return res.status(401).json({ information: "Email already used." })
 
     const myHashPwd = await bcrypt.hash(password, 10)
     await Clients.create({ 

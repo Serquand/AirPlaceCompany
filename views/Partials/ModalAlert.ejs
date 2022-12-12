@@ -1,0 +1,13 @@
+<div class="modal-alert">
+    <div class="layout" style="z-index: 999999999;"></div>
+    <div class="modal-alert-content" style="z-index: 9999999999;">
+        <p id="information-error">Ceci est une erreur</p>
+        <button class="close-alert-modal">Ok</button>
+    </div>
+</div>
+
+<script>
+    document.querySelector(".close-alert-modal").addEventListener("click", () => {
+        document.querySelector(".modal-alert").style.display = "none"
+    })
+</script>

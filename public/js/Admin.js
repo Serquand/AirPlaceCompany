@@ -43,7 +43,12 @@ const createFlight = async () => {
 
     const res = await fetch("/flight/createFlight", requestOptions)
     
-    if(res.status !== 200) return;
-    
-    modalCreate.style.display = "none"
+    if(res.status !== 200) {
+        const alertModal = document.querySelector(".modal-alert")
+        alertModal.style.display = "block";
+        alertModal.querySelector("p").innerText = (await res.json()).information;
+        return;
+    } 
+
+    window.location.href = "/admin";
 }
