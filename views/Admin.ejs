@@ -141,12 +141,12 @@
                         />
                     </div>
 
-                    <div class="booking-form-component">
+                    <div class="booking-form-component search-airport">
                         <input 
                             type="text"
                             class="input-booking"
                             placeholder="Arrival airport"
-                            id="arrival-aiport-choice"
+                            id="arrival-aiport-choice-form"
                         />
                         <% for(const airport of airports) { %>
                             <div class="airport-choice">
@@ -196,7 +196,11 @@
                     </div>
                 </section>
 
-                <button id="create-flight-button">Submit</button>
+                <button 
+                    onclick="createFlight()"
+                    id="create-flight-button"
+                    type="button"
+                >Submit</button>
             </form>
         </div>
     </div>

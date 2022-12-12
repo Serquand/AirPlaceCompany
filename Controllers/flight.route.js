@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const Flight = require('../Models/Flight');
 const Ticket = require("../Models/Ticket")
-const Airport = require("../Models/Airport")
 const Client = require("../Models/Client")
-const sequelize = require("../Models/Connection")
+const Airport = require("../Models/Airport");
 const { isAuth, isAdmin } = require("./auth");
+const goodAirport = require("../Utils/GoodAirport")
+const convertDate = require("../Utils/ConvertDate")
 
 const addClientId = async (req, res, next) => {
     const clientId = (await Client.findOne({
@@ -17,15 +18,59 @@ const addClientId = async (req, res, next) => {
     next();
 }
 
+const matchingAirport = async (req, res, next) => {
+    if(!goodAirport(req.body.airportDeparture) || !goodAirport(req.body.airportArrival)) {
+        return res.status(400).json({ information: "Airports are wrong !" });
+    }
+
+    req.body.airportDeparture = (await Airport.findOne({
+        where: { discriminator: req.body.airportDeparture.split("(")[1].split(")")[0] }, 
+        attributes: ["idAirport"]
+    }))?.dataValues.idAirport;
+
+    req.body.airportArrival = (await Airport.findOne({
+        where: { discriminator: req.body.airportArrival.split("(")[1].split(")")[0] }, 
+        attributes: ["idAirport"]
+    }))?.dataValues.idAirport;
+
+    if(req.body.airportDeparture == undefined || req.body.airportArrival == undefined) {
+        return res.status(400).information({ information: "Airport not found !" })
+    }
+
+    if(req.body.airportArrival === req.body.airportDeparture) {
+        return res.status(401).json({ information: "The airport arrival and the airport departure cannot be the same" })
+    }
+
+    next();
+}
+
+const createDateTime = (req, res, next) => {
+    req.body.dateDeparture = convertDate(req.body.dateDeparture, req.body.timeDeparture)
+    req.body.dateArrival = convertDate(req.body.dateArrival, req.body.timeArrival)
+
+    if(!req.body.dateDeparture || !req.body.dateArrival) return res.status(400).json({ information: "Invalid date" })
+    
+    const timeArrival = new Date(req.body.dateArrival).getTime(), timeDeparture = new Date(req.body.dateDeparture).getTime()
+    if(timeArrival < timeDeparture) return res.status(400).json({ information: "Invalid date" })
+
+    next()
+}
+
+
 // We are gonna to create a new flight
-router.post("/createFlight", isAdmin, async (req, res) => {
-    if(req.body.price < 0) return res.status(400).json({ information: "The price cannot be lower than 0" })
-    if(req.body.seat < 0) return res.status(400).json({ information: "The number of available seat cannot be lower than 0" })
-    if(req.body.airportArrival === req.body.airportDeparture) return res.status(401).json({ information: "The airport arrival and the airport departure cannot be the same" })
+router.post("/createFlight", isAdmin, matchingAirport, createDateTime, async (req, res) => {
+    if(!req.body.price || req.body.price < 0) {
+        return res.status(400).json({ information: "The price cannot be lower than 0" })
+    } 
+
+    if(!req.body.seat || req.body.seat < 0) {
+        return res.status(400).json({ information: "The number of available seat cannot be lower than 0" })
+    }
 
     await Flight.create({
-        price: req.body.price, 
-        meal: req.body.meal, 
+        price: req.body.price,
+        meal: req.body.meal ? 1 : 0, 
+        wifi: req.body.wifi ? 1 : 0,
         state: "Incoming", 
         idAirportDeparture: req.body.airportDeparture,
         idAirportArrival: req.body.airportArrival, 
