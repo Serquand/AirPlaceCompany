@@ -21,7 +21,7 @@ module.exports = async (email) => {
 
         const flight = (await Flight.findOne({ 
             where: { idFlight: ticket.idFlight },
-            attributes: ['dateDeparture', "dateArrival", "availableSeat", "meal", "wifi", "idAirportDeparture", "idAirportArrival"]
+            attributes: ['dateDeparture', "dateArrival", "availableSeat", "meal", "wifi", "idAirportDeparture", "idAirportArrival", "idFlight"]
         }))?.dataValues
         
         const airportDeparture = (await Airport.findOne({

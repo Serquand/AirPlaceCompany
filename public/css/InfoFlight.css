@@ -106,3 +106,10 @@ input::placeholder {
 #modal-price {
     display: none;
 }
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}

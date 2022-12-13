@@ -53,6 +53,8 @@ const createDateTime = (req, res, next) => {
     const timeArrival = new Date(req.body.dateArrival).getTime(), timeDeparture = new Date(req.body.dateDeparture).getTime()
     if(timeArrival < timeDeparture) return res.status(400).json({ information: "Invalid date" })
 
+    if(timeDeparture < Date.now()) return res.status(400).json({ information: "You cannot create a flight with a past date" })
+
     next()
 }
 

@@ -24,6 +24,7 @@
     display: flex;
     flex-direction: row;
     color: white;
+    position: relative;
     border: 2px solid #555;
     border-radius: 10px;
     width: fit-content;
@@ -121,4 +122,10 @@
 
 .modal-alert {
     display: none;
+}
+
+.p-id-flight {
+    position: absolute;
+    top: 10px;
+    right: 20px;
 }

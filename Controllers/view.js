@@ -83,8 +83,8 @@ const infoFlightView = async (req, res) => {
 
 const about = (req, res) => {
     const authType = {
-        logged: true, 
-        admin: true,
+        logged: req.session.user ? true : false, 
+        admin: req.session.admin ? true : false,
     }
 
     res.render("About", { authType })    
