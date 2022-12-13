@@ -19,10 +19,16 @@
                 <% if(context == "Admin" || context == "Bought") { %>
                     Available seat
                 <% } else { %>
-                    Seat <%= info.flight.seat %>
+                    Seat
                 <% } %>
             </p>
-            <p><%= info.flight.availableSeat %></p>
+            <p>
+                <% if(context == "Admin" || context == "Bought") { %>
+                    <%= info.flight.availableSeat %>
+                <% } else { %>
+                    <%= info.ticket.seat %>
+                <% } %>
+            </p>
         </div>
 
         <div class="duration">
