@@ -32,8 +32,13 @@ module.exports = async () => {
         flightsArr[i].flight.date = infoDate.date;
         flightsArr[i].flight.travelTime = infoDate.travelTime;
 
-        delete flightsArr[i].flight.dateDeparture 
-        delete flightsArr[i].flight.dateArrival
+        flightsArr[i].flight.dateDeparture 
+        flightsArr[i].flight.dateArrival
     }
+
+    flightsArr.sort((a, b) => {
+        return new Date(a.flight.dateDeparture) - new Date(b.flight.dateDeparture)
+    })
+
     return flightsArr
 }

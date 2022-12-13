@@ -52,5 +52,12 @@ module.exports = async (email) => {
         if(!stateTickets[state]) stateTickets[state] = [ticketArr[i]]
         else stateTickets[state].push(ticketArr[i])
     }
+
+    for (const state in stateTickets) {
+        stateTickets[state].sort((a, b) => {
+            return new Date(a.flight.dateDeparture) - new Date(b.flight.dateDeparture)
+        })   
+    }
+
     return stateTickets
 }
