@@ -46,6 +46,7 @@ const memberView = async (req, res) => {
         admin: req.session.admin ? true : false,
     }
     
+    // Search the information of the user and the flights of the users
     const user = await getInfoUser(req.session.user)
     const flights = await getFlightUser(req.session.user);
     
@@ -61,7 +62,8 @@ const notFoundView = (req, res) => {
     res.status(404).render("NotFound", { authType })
 }
 
-const logOut = (req, res) => {  
+const logOut = (req, res) => { 
+    // Remove the information of the session and then redirect to the home page
     req.session.token = ""
     req.session.user = ""
     req.session.admin = false
@@ -75,6 +77,7 @@ const infoFlightView = async (req, res) => {
         admin: true,
     }
 
+    // Get the flight and the different customer of the flight
     const flight = await getAFlight(req.params.idFlight)
     const users = await getUsersOfFlight(req.params.idFlight)
     

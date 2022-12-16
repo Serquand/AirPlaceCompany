@@ -3,6 +3,7 @@ const DataTypes = require( "sequelize");
 const Client = require("./Client")
 const Flight = require("./Flight");
 
+// We create our table Tickets
 module.exports = sequelize.define("Ticket", {
     idTicket: {
         type: DataTypes.INTEGER,

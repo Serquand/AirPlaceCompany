@@ -7,6 +7,8 @@ for (const c of container) {
     c.querySelector("input").addEventListener("input", (event) => {
         let pos = 0;
         const airports = c.querySelectorAll(".airport-choice");
+
+        // Display the matching airports
         for (const airport of airports) {
             if(event.target.value.length == 0) {
                 airport.style.display = "none"
@@ -14,7 +16,7 @@ for (const c of container) {
             }
             
             if(pos == 5) break;
-    
+            
             if(airport.innerText.split("(")[0].trim().toUpperCase().startsWith(event.target.value.toUpperCase())) {
                 airport.style.display = "block";
                 airport.style.transform = `translateY(${++pos}00%)`
@@ -29,6 +31,7 @@ for (const c of container) {
 for (const c of container) {
     const allAirport = c.querySelectorAll(".airport-choice")
     allAirport.forEach((airport) => {
+        // When we click to an airport, hidde all the airports and put in the input the airport we chose
         airport.addEventListener("click", (event) => {
             if(event.target.innerText.length !== 5) c.querySelector("input").value = event.target.innerText;
             else c.querySelector("input").value = event.target.parentNode.innerText;
@@ -39,6 +42,7 @@ for (const c of container) {
     })
 }
 
+// CHanging the displayed flights to put the matching flights
 document.querySelector("#button-search-flight").addEventListener("click", () => {
     const airportArrival = document.getElementById("arrival-aiport-choice").value
     const airportDeparture = document.getElementById("departure-airport-choice").value
@@ -51,6 +55,7 @@ document.querySelector("#button-search-flight").addEventListener("click", () => 
         const ticketDeparture = ticket.querySelector(".dest > :first-child").innerText
         const ticketDate = ticket.querySelector(".date").innerText
         
+        //iIf the flight is matching the criteria, so display it. Otherwise, hidde it.
         if(ticketDate == date && ticketArrival == airportArrival && ticketDeparture == airportDeparture) {
             ticket.style.display = "flex"
             find = true;
@@ -59,5 +64,6 @@ document.querySelector("#button-search-flight").addEventListener("click", () => 
         ticket.style.display = "none"
     })
 
+    // If we find no flight with the selected criteria, display an error message
     if(!find) document.querySelector(".tickets-container h2").innerText = "We found no flight for you !"
 });

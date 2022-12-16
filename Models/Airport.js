@@ -1,6 +1,7 @@
 const sequelize = require( "./Connection")
 const DataTypes = require( "sequelize");
 
+// We use Sequelize to create our table Airports
 module.exports = sequelize.define("Airport", {
     idAirport: {
         type: DataTypes.INTEGER,

@@ -8,21 +8,26 @@ const { isAuth, isAdmin } = require("./auth");
 const goodAirport = require("../Utils/GoodAirport")
 const convertDate = require("../Utils/ConvertDate")
 
+// We will add the id of a client
 const addClientId = async (req, res, next) => {
+    // We search for the id of the client in the database
     const clientId = (await Client.findOne({
         where: { email: req.session.user }, 
         attributes: ["idClient"]
     }))?.idClient;
 
+    // We update the req.body to add the clientId
     req.body.idClient = clientId;
     next();
 }
 
 const matchingAirport = async (req, res, next) => {
+    // If the format of the airport is not good, return an error
     if(!goodAirport(req.body.airportDeparture) || !goodAirport(req.body.airportArrival)) {
         return res.status(400).json({ information: "Airports are wrong !" });
     }
 
+    //Search in the database the departure and the arrival airport
     req.body.airportDeparture = (await Airport.findOne({
         where: { discriminator: req.body.airportDeparture.split("(")[1].split(")")[0] }, 
         attributes: ["idAirport"]
@@ -33,10 +38,12 @@ const matchingAirport = async (req, res, next) => {
         attributes: ["idAirport"]
     }))?.dataValues.idAirport;
 
+    // If we cannot find the airport, return an error
     if(req.body.airportDeparture == undefined || req.body.airportArrival == undefined) {
         return res.status(400).information({ information: "Airport not found !" })
     }
 
+    // If the airport are the same, return an error
     if(req.body.airportArrival === req.body.airportDeparture) {
         return res.status(400).json({ information: "The airport arrival and the airport departure cannot be the same" })
     }
@@ -44,6 +51,7 @@ const matchingAirport = async (req, res, next) => {
     next();
 }
 
+// We will create the string of the date
 const createDateTime = (req, res, next) => {
     req.body.dateDeparture = convertDate(req.body.dateDeparture, req.body.timeDeparture)
     req.body.dateArrival = convertDate(req.body.dateArrival, req.body.timeArrival)
@@ -61,14 +69,17 @@ const createDateTime = (req, res, next) => {
 
 // We are gonna to create a new flight
 router.post("/createFlight", isAdmin, matchingAirport, createDateTime, async (req, res) => {
+    // If the price is missing or is lower than 0, return an error
     if(!req.body.price || req.body.price < 0) {
         return res.status(400).json({ information: "The price cannot be lower than 0" })
     } 
 
+    // If the number of available seat is missing or is lower than 0, return an error
     if(!req.body.seat || req.body.seat < 0) {
         return res.status(400).json({ information: "The number of available seat cannot be lower than 0" })
     }
 
+    // Add the flight in the database
     await Flight.create({
         price: req.body.price,
         meal: req.body.meal ? 1 : 0, 
@@ -86,8 +97,10 @@ router.post("/createFlight", isAdmin, matchingAirport, createDateTime, async (re
 
 // We are gonna to cancel a flight
 router.patch("/cancelFlight/:idFlight", isAdmin, async (req, res) => {
+    // If the id is missing, return an error
     if(!req.params.idFlight) return res.status(400).json({ information: "Invalid request !" })
 
+    // Cancel the flight and then all tickets of the flight
     Flight.update({ state: "Cancelled" }, { where: { idFlight: req.params.idFlight } })
     Ticket.update({ state: "Cancelled" }, { where: { idFlight: req.params.idFlight } })
     
@@ -137,6 +150,7 @@ router.put("/:idFlight", isAdmin, async (req, res) => {
         attributes: ["state", "price"]
     }))?.dataValues;
         
+    // If the flight doesn't exist, or the new price is equal to the older price, or the state is cancel or past, return an error
     if(flight == undefined) return res.status(400).json({ information: "Failed to find the flight" });
     if(flight.price == req.body.price) return res.status(400).json({ information: "Older and newer price are the same" });
     if(flight.state != "Incoming") return res.status(400).json({ information: "The flight has been already taking place or is cancelled" });
@@ -157,6 +171,7 @@ router.patch("/cancelTicket/:idTicket", isAuth, async (req, res) => {
         attributes: ["state", "idFlight"]
     }))?.dataValues;
 
+    // If the ticket doesn't exist or the state is cancel or past, return an error
     if(ticket === undefined) return res.status(404).json({ information: "Ticket not found" })
     if(ticket.state != "Incoming") return res.status(404).json({ information: "The flight has been already taking place or is already cancelled" });
 

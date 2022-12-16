@@ -1,3 +1,4 @@
+// Get the different element that we will use
 const ticketsView = document.querySelectorAll(".bought-trip");
 const createFlightButton = document.querySelector("#create-flight")
 const modalCreate = document.querySelector('#modal-create-flight')
@@ -12,6 +13,7 @@ const seat = document.getElementById("seat-create")
 const meal = document.getElementById("meal-create")
 const wifi = document.getElementById("wifi-create")
 
+// Create the interaction of the button which redirect to the infoFlight page
 ticketsView.forEach(ticket => {
     ticket.addEventListener("click", event => {
         idFlight = event.target.id.split("-")[2];
@@ -19,8 +21,10 @@ ticketsView.forEach(ticket => {
     })
 })
 
+// Display the modal for creating a flight
 createFlightButton.addEventListener("click", () => modalCreate.style.display = "block");
 
+// Create a flight
 const createFlight = async () => {
     const requestOptions = {
         method: "POST",
@@ -41,8 +45,10 @@ const createFlight = async () => {
         })
     };
 
+    // Fetch to the endpoint
     const res = await fetch("/flight/createFlight", requestOptions)
     
+    // If the status is diffent than 201, display an alert
     if(res.status !== 201) {
         const alertModal = document.querySelector(".modal-alert")
         alertModal.style.display = "block";

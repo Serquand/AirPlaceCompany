@@ -5,7 +5,7 @@ module.exports = (dateDeparture, dateArrival) => {
     const hourDeparture = (departure.getHours().toString().padStart(2, '0') - 1) + ":" + departure.getMinutes().toString().padStart(2, '0');
     const hourArrival = (arrival.getHours().toString().padStart(2, '0') - 1) + ":" + arrival.getMinutes().toString().padStart(2, '0');
 
-
+    // Compute the duration of the travel
     const timeTravel = (arrival.getTime() - departure.getTime()) / 60_000;
     const travelTime = Math.ceil(timeTravel / 60).toString().padStart(2, '0') + "h" + (timeTravel % 60).toString().padStart(2, '0');
 

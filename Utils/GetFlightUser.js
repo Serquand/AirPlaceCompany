@@ -11,19 +11,23 @@ module.exports = async (email) => {
         attributes: ['idClient']
     }))?.dataValues.idClient;
 
+    // Find all the tickets of the users
     const tickets = await Ticket.findAll({
         where: { idClient: client },
         attributes: ['state', "seat", "idFlight", "idTicket"]
     });
 
+    // For each ticket
     for (let ticket of tickets) {
         ticket = ticket.dataValues;
 
+        // Get the different informations contains in the table Flights
         const flight = (await Flight.findOne({ 
             where: { idFlight: ticket.idFlight },
             attributes: ['dateDeparture', "dateArrival", "meal", "wifi", "idAirportDeparture", "idAirportArrival", "idFlight"]
         }))?.dataValues
         
+        // Get the different information contains in the table Airports
         const airportDeparture = (await Airport.findOne({
             where: { idAirport: flight.idAirportDeparture }, 
             attributes: ["cityName", "discriminator"]
@@ -37,6 +41,7 @@ module.exports = async (email) => {
         ticketArr.push({ ticket, flight, airportDeparture, airportArrival })
     }
 
+    // Get the informations for the date, hour and duration of the travel and sorted by the status of the ticket
     for (let i = 0; i < ticketArr.length; i++) {
         const state = ticketArr[i].ticket.state;
         
@@ -53,6 +58,7 @@ module.exports = async (email) => {
         else stateTickets[state].push(ticketArr[i])
     }
 
+    // Sort by date
     for (const state in stateTickets) {
         stateTickets[state].sort((a, b) => {
             return new Date(a.flight.dateDeparture) - new Date(b.flight.dateDeparture)

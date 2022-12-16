@@ -2,6 +2,8 @@ const sequelize = require( "./Connection")
 const DataTypes = require( "sequelize");
 const Airport = require("./Airport")
 
+
+// We create the table Flights
 module.exports = sequelize.define("Flight", {
     idFlight: {
         type: DataTypes.INTEGER,

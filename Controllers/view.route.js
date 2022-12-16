@@ -4,6 +4,7 @@ const router = express.Router();
 const { homeView, adminView, loginView, memberView, notFoundView, logOut, infoFlightView, about } = require("./view")
 const { isAuth, isAdmin } = require("./auth")
 
+// Routes for the differents views
 router.get("/", homeView);
 router.get("/login", loginView);
 router.get("/admin", isAdmin, adminView);
